@@ -1,0 +1,175 @@
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشروع التخرج - الصفحة الرئيسية</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --background-color: #f0f4f8;
+            --text-color: #333;
+            --card-background: #fff;
+        }
+
+        body {
+            font-family: 'Tajawal', Arial, sans-serif;
+            direction: rtl;
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        nav {
+            background-color: var(--primary-color);
+            padding: 15px 0;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+
+        .content-section {
+            background-color: var(--card-background);
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .feature-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            margin-bottom: 10px;
+            padding-right: 20px;
+            position: relative;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            color: var(--primary-color);
+            position: absolute;
+            right: 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>مشروع التخرج</h1>
+            <p>منصة البحث عن المطورين وإضافة الملفات الشخصية</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">الرئيسية</a></li>
+            <li><a href="search.html">البحث عن مطورين</a></li>
+            <li><a href="add-profile.html">إضافة ملف شخصي</a></li>
+            <li><a href="edit-profile.html">تعديل الملف الشخصي</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section class="content-section">
+            <h2>مرحبًا بك في مشروع التخرج</h2>
+            <p>هذه المنصة تتيح لك البحث عن مطورين في مختلف المجالات وإضافة ملفك الشخصي للتواصل مع الآخرين.</p>
+            
+            <h3>مميزات الموقع:</h3>
+            <ul class="feature-list">
+                <li>البحث عن مطورين في مختلف المجالات (Frontend, Backend, UI/UX, وغيرها)</li>
+                <li>إضافة ملفك الشخصي بسهولة</li>
+                <li>إمكانية إضافة روابط متعددة لمشاريعك</li>
+                <li>التواصل مباشرة عبر رقم الهاتف</li>
+                <li>تعديل وحذف معلوماتك الشخصية</li>
+                <li>حفظ البيانات بشكل دائم</li>
+            </ul>
+
+            <p>ابدأ الآن بالبحث عن المطورين أو إضافة ملفك الشخصي!</p>
+            <a href="search.html" class="cta-button">ابحث عن مطورين</a>
+            <a href="add-profile.html" class="cta-button">أضف ملفك الشخصي</a>
+        </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.10.0/localforage.min.js"></script>
+    <script>
+        // تهيئة LocalForage
+        localforage.config({
+            name: 'GraduationProject'
+        });
+
+        // دالة لحفظ البيانات
+        function saveData(key, value) {
+            return localforage.setItem(key, value);
+        }
+
+        // دالة لاسترجاع البيانات
+        function getData(key) {
+            return localforage.getItem(key);
+        }
+
+        // دالة لحذف البيانات
+        function removeData(key) {
+            return localforage.removeItem(key);
+        }
+    </script>
+</body>
+</html>

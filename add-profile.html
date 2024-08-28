@@ -1,0 +1,273 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إضافة ملف شخصي - مشروع التخرج</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --background-color: #f0f4f8;
+            --text-color: #333;
+            --card-background: #fff;
+        }
+
+        body {
+            font-family: 'Tajawal', Arial, sans-serif;
+            direction: rtl;
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1,
+        h2 {
+            margin: 0;
+        }
+
+        nav {
+            background-color: var(--primary-color);
+            padding: 15px 0;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+
+        .content-section {
+            background-color: var(--card-background);
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        button {
+            margin: 10px 0;
+            padding: 12px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        #projectLinks {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-link-input {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .project-link-input input {
+            flex-grow: 1;
+            margin-left: 10px;
+        }
+
+        .remove-link {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #addProjectLink {
+            align-self: flex-start;
+            margin-top: 10px;
+        }
+
+        #message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .success {
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        .error {
+            background-color: #e74c3c;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>إضافة ملف شخصي</h1>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="../index.html">الرئيسية</a></li>
+            <li><a href="../search.html">البحث عن مطورين</a></li>
+            <li><a href="add-profile.html">إضافة ملف شخصي</a></li>
+            <li><a href="../edit-profile.html">تعديل الملف الشخصي</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section class="content-section">
+            <h2>أضف ملفك الشخصي</h2>
+            <form id="profileForm">
+                <label for="name">الاسم:</label>
+                <input type="text" id="name" required>
+
+                <label for="phone">رقم الهاتف:</label>
+                <input type="tel" id="phone" required>
+
+                <label for="track">المسار:</label>
+                <select id="track" required>
+                    <option value="">اختر المسار</option>
+                    <option value="frontend">Frontend</option>
+                    <option value="backend">Backend</option>
+                    <option value="fullstack">Full Stack</option>
+                    <option value="mobile">Mobile Development</option>
+                    <option value="ui-ux">UI/UX Design</option>
+                </select>
+
+                <label>روابط المشاريع:</label>
+                <div id="projectLinks">
+                    <div class="project-link-input">
+                        <input type="url" placeholder="أدخل رابط المشروع" required>
+                        <button type="button" class="remove-link" onclick="removeProjectLink(this)">حذف</button>
+                    </div>
+                </div>
+                <button type="button" id="addProjectLink">إضافة رابط مشروع</button>
+
+                <button type="submit">إضافة الملف الشخصي</button>
+            </form>
+            <div id="message"></div>
+        </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.10.0/localforage.min.js"></script>
+    <script>
+        localforage.config({
+            name: 'GraduationProject'
+        });
+
+        function addProjectLink() {
+            const projectLinks = document.getElementById('projectLinks');
+            const newLink = document.createElement('div');
+            newLink.className = 'project-link-input';
+            newLink.innerHTML = `
+                <input type="url" placeholder="أدخل رابط المشروع" required>
+                <button type="button" class="remove-link" onclick="removeProjectLink(this)">حذف</button>
+            `;
+            projectLinks.appendChild(newLink);
+        }
+
+        function removeProjectLink(button) {
+            button.parentElement.remove();
+        }
+
+        document.getElementById('addProjectLink').addEventListener('click', addProjectLink);
+
+        document.getElementById('profileForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const track = document.getElementById('track').value;
+            const projectLinkInputs = document.querySelectorAll('#projectLinks input');
+            const projectLinks = Array.from(projectLinkInputs).map(input => input.value);
+
+            const profile = { name, phone, track, projectLinks };
+
+            try {
+                let profiles = await localforage.getItem('profiles') || [];
+                profiles.push(profile);
+                await localforage.setItem('profiles', profiles);
+
+                document.getElementById('message').textContent = 'تم إضافة الملف الشخصي بنجاح!';
+                document.getElementById('message').className = 'success';
+                this.reset();
+                document.getElementById('projectLinks').innerHTML = `
+                    <div class="project-link-input">
+                        <input type="url" placeholder="أدخل رابط المشروع" required>
+                        <button type="button" class="remove-link" onclick="removeProjectLink(this)">حذف</button>
+                    </div>
+                `;
+            } catch (error) {
+                console.error('Error saving profile:', error);
+                document.getElementById('message').textContent = 'حدث خطأ أثناء حفظ الملف الشخصي. يرجى المحاولة مرة أخرى.';
+                document.getElementById('message').className = 'error';
+            }
+        });
+    </script>
+</body>
+
+</html>

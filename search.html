@@ -1,0 +1,198 @@
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>البحث عن مطورين - مشروع التخرج</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --background-color: #f0f4f8;
+            --text-color: #333;
+            --card-background: #fff;
+        }
+
+        body {
+            font-family: 'Tajawal', Arial, sans-serif;
+            direction: rtl;
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h1, h2 {
+            margin: 0;
+        }
+
+        nav {
+            background-color: var(--primary-color);
+            padding: 15px 0;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+
+        .content-section {
+            background-color: var(--card-background);
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        input, select, button {
+            margin: 10px 0;
+            padding: 12px;
+            width: 100%;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .profile-card {
+            background-color: var(--card-background);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-link {
+            display: inline-block;
+            margin: 5px;
+            padding: 5px 10px;
+            background-color: #ecf0f1;
+            border-radius: 4px;
+            text-decoration: none;
+            color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>البحث عن مطورين</h1>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">الرئيسية</a></li>
+            <li><a href="search.html">البحث عن مطورين</a></li>
+            <li><a href="add-profile.html">إضافة ملف شخصي</a></li>
+            <li><a href="edit-profile.html">تعديل الملف الشخصي</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section class="content-section">
+            <h2>ابحث عن مطورين</h2>
+            <select id="track-select">
+                <option value="">اختر المسار</option>
+                <option value="frontend">Frontend</option>
+                <option value="backend">Backend</option>
+                <option value="fullstack">Full Stack</option>
+                <option value="mobile">Mobile Development</option>
+                <option value="ui-ux">UI/UX Design</option>
+            </select>
+            <button onclick="searchDevelopers()">بحث</button>
+        </section>
+
+        <section id="search-results" class="content-section">
+            <!-- نتائج البحث ستظهر هنا -->
+        </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.10.0/localforage.min.js"></script>
+    <script>
+        localforage.config({
+            name: 'GraduationProject'
+        });
+
+        async function searchDevelopers() {
+            const track = document.getElementById('track-select').value;
+            const searchResults = document.getElementById('search-results');
+            searchResults.innerHTML = '<h2>نتائج البحث</h2>';
+
+            try {
+                const profiles = await localforage.getItem('profiles') || [];
+                const filteredProfiles = track ? profiles.filter(profile => profile.track === track) : profiles;
+
+                if (filteredProfiles.length === 0) {
+                    searchResults.innerHTML += '<p>لم يتم العثور على نتائج.</p>';
+                } else {
+                    filteredProfiles.forEach(profile => {
+                        const profileCard = document.createElement('div');
+                        profileCard.className = 'profile-card';
+                        profileCard.innerHTML = `
+                            <h3>${profile.name}</h3>
+                            <p>المسار: ${profile.track}</p>
+                            <p>رقم الهاتف: ${profile.phone}</p>
+                            <h4>روابط المشاريع:</h4>
+                            <div>${profile.projectLinks.map(link => `<a href="${link}" target="_blank" class="project-link">${link}</a>`).join('')}</div>
+                        `;
+                        searchResults.appendChild(profileCard);
+                    });
+                }
+            } catch (error) {
+                console.error('Error fetching profiles:', error);
+                searchResults.innerHTML += '<p>حدث خطأ أثناء البحث. يرجى المحاولة مرة أخرى.</p>';
+            }
+        }
+    </script>
+</body>
+</html>
