@@ -1,49 +1,67 @@
-<html><head>
+<html>
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مشروع التخرج - الصفحة الرئيسية</title>
+    <title>مشروع التخرج - منصة البحث عن المطورين</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
 
         :root {
             --primary-color: #3498db;
             --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
             --background-color: #f0f4f8;
             --text-color: #333;
-            --card-background: #fff;
         }
 
         body {
-            font-family: 'Tajawal', Arial, sans-serif;
+            font-family: 'Cairo', Arial, sans-serif;
             direction: rtl;
             background-color: var(--background-color);
             margin: 0;
             padding: 0;
             color: var(--text-color);
+            font-size: 16px;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            width: 90%;
         }
 
         header {
-            background-color: var(--secondary-color);
+            background: linear-gradient(135deg, #3498db, #2c3e50);
             color: white;
             text-align: center;
-            padding: 30px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 60px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1,
+        h2 {
+            margin: 0;
         }
 
         h1 {
-            margin: 0;
-            font-size: 2.5em;
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        header p {
+            font-size: 1.2em;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
         }
 
         nav {
-            background-color: var(--primary-color);
+            background-color: rgba(255, 255, 255, 0.1);
             padding: 15px 0;
+            margin-top: 20px;
         }
 
         nav ul {
@@ -52,124 +70,772 @@
             margin: 0;
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
         }
 
         nav ul li {
-            margin: 0 15px;
+            margin: 5px 15px;
         }
 
         nav ul li a {
             color: white;
             text-decoration: none;
-            font-size: 1.1em;
-            transition: color 0.3s;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 25px;
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
         nav ul li a:hover {
-            color: var(--secondary-color);
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
         }
 
         .content-section {
-            background-color: var(--card-background);
+            background-color: white;
             border-radius: 8px;
             padding: 30px;
             margin-top: 30px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
         }
 
-        .feature-list {
-            list-style-type: none;
-            padding: 0;
+        .content-section:hover {
+            transform: translateY(-5px);
         }
 
-        .feature-list li {
+        input,
+        select,
+        button {
+            margin: 10px 0;
+            padding: 12px;
+            width: 100%;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .profile-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-link {
+            display: inline-block;
+            margin: 5px;
+            padding: 5px 10px;
+            background-color: #ecf0f1;
+            border-radius: 4px;
+            text-decoration: none;
+            color: var(--secondary-color);
+            word-break: break-all;
+            transition: background-color 0.3s ease;
+        }
+
+        .project-link:hover {
+            background-color: #bdc3c7;
+        }
+
+        #addProjectLinkBtn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease;
+        }
+
+        #addProjectLinkBtn:hover {
+            background-color: #219653;
+        }
+
+        #projectLinks {
+            margin-top: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .project-link-container {
+            display: flex;
+            align-items: center;
             margin-bottom: 10px;
-            padding-right: 20px;
-            position: relative;
         }
 
-        .feature-list li::before {
-            content: "✓";
-            color: var(--primary-color);
+        .delete-link-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .delete-link-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 20px;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .animate-slide-in {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        /* Home page styles */
+        #home {
+            text-align: center;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 80px 0;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
             position: absolute;
+            top: 0;
+            left: 0;
             right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80') no-repeat center center;
+            background-size: cover;
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-section h2 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-section p {
+            font-size: 1.3em;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
         }
 
         .cta-button {
             display: inline-block;
-            background-color: var(--primary-color);
+            padding: 15px 30px;
+            background-color: var(--accent-color);
             color: white;
-            padding: 12px 24px;
             text-decoration: none;
-            border-radius: 4px;
-            font-weight: bold;
-            transition: background-color 0.3s;
+            border-radius: 25px;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .cta-button:hover {
-            background-color: #2980b9;
+            background-color: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .tracks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .track-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .track-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .track-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 15px;
+        }
+
+        .features {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 40px;
+            gap: 20px;
+        }
+
+        .feature {
+            flex: 1;
+            min-width: 250px;
+            max-width: calc(33.333% - 20px);
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .feature:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(52, 152, 219, 0.1), rgba(52, 152, 219, 0));
+            transition: all 0.5s ease;
+        }
+
+        .feature:hover::before {
+            top: 0;
+        }
+
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            transition: all 0.5s ease;
+        }
+
+        .feature:hover .feature-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .feature h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .feature:hover h3 {
+            color: var(--primary-color);
+        }
+
+        .feature p {
+            font-size: 1em;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .feature:hover p {
+            color: #333;
+        }
+
+        /* Mobile menu styles */
+        .mobile-menu-icon {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: var(--secondary-color);
+            z-index: 999;
+            transition: right 0.3s ease;
+            padding-top: 60px;
+        }
+
+        .mobile-menu ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .mobile-menu ul li {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-menu ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1em;
+            display: block;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            body {
+                font-size: 14px;
+            }
+
+            .container {
+                width: 95%;
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .mobile-menu-icon {
+                display: block;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .content-section {
+                padding: 20px;
+            }
+
+            input,
+            select,
+            button {
+                padding: 10px;
+            }
+
+            .feature {
+                flex-basis: 100%;
+                margin-bottom: 20px;
+                max-width: 100%;
+            }
+
+            .tracks-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .hero-section {
+                padding: 40px 0;
+            }
+
+            .hero-section h2 {
+                font-size: 2em;
+            }
+
+            .hero-section p {
+                font-size: 1.1em;
+            }
+
+            .cta-button {
+                padding: 12px 24px;
+                font-size: 1em;
+            }
         }
     </style>
 </head>
+
 <body>
-    <header>
+    <header class="animate-fade-in">
         <div class="container">
             <h1>مشروع التخرج</h1>
             <p>منصة البحث عن المطورين وإضافة الملفات الشخصية</p>
+            <nav class="animate-slide-in">
+                <ul>
+                    <li><a href="#home" onclick="showSection('home')">الرئيسية</a></li>
+                    <li><a href="#search" onclick="showSection('search')">البحث عن مطورين</a></li>
+                    <li><a href="#add-profile" onclick="showSection('add-profile')">إضافة ملف شخصي</a></li>
+                    <li><a href="#my-profile" onclick="showSection('my-profile')">ملفي الشخصي</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
-    <nav>
+    <div class="mobile-menu-icon" onclick="toggleMobileMenu()">☰</div>
+    <div class="mobile-menu">
         <ul>
-            <li><a href="index.html">الرئيسية</a></li>
-            <li><a href="search.html">البحث عن مطورين</a></li>
-            <li><a href="add-profile.html">إضافة ملف شخصي</a></li>
-            <li><a href="edit-profile.html">تعديل الملف الشخصي</a></li>
+            <li><a href="#home" onclick="showSection('home'); toggleMobileMenu()">الرئيسية</a></li>
+            <li><a href="#search" onclick="showSection('search'); toggleMobileMenu()">البحث عن مطورين</a></li>
+            <li><a href="#add-profile" onclick="showSection('add-profile'); toggleMobileMenu()">إضافة ملف شخصي</a></li>
+            <li><a href="#my-profile" onclick="showSection('my-profile'); toggleMobileMenu()">ملفي الشخصي</a></li>
         </ul>
-    </nav>
+    </div>
 
     <div class="container">
-        <section class="content-section">
-            <h2>مرحبًا بك في مشروع التخرج</h2>
-            <p>هذه المنصة تتيح لك البحث عن مطورين في مختلف المجالات وإضافة ملفك الشخصي للتواصل مع الآخرين.</p>
-            
-            <h3>مميزات الموقع:</h3>
-            <ul class="feature-list">
-                <li>البحث عن مطورين في مختلف المجالات (Frontend, Backend, UI/UX, وغيرها)</li>
-                <li>إضافة ملفك الشخصي بسهولة</li>
-                <li>إمكانية إضافة روابط متعددة لمشاريعك</li>
-                <li>التواصل مباشرة عبر رقم الهاتف</li>
-                <li>تعديل وحذف معلوماتك الشخصية</li>
-                <li>حفظ البيانات بشكل دائم</li>
-            </ul>
+        <section id="home" class="content-section animate-fade-in">
+            <div class="hero-section animate-fade-in">
+                <div class="hero-content">
+                    <h2>ابدأ رحلتك في عالم تطوير البرمجيات</h2>
+                    <p>اكتشف المطورين الموهوبين، تواصل معهم، وحقق مشاريعك بكفاءة وإبداع</p>
+                    <a href="#search" onclick="showSection('search')" class="cta-button">ابحث عن مطورين الآن</a>
+                </div>
+            </div>
 
-            <p>ابدأ الآن بالبحث عن المطورين أو إضافة ملفك الشخصي!</p>
-            <a href="search.html" class="cta-button">ابحث عن مطورين</a>
-            <a href="add-profile.html" class="cta-button">أضف ملفك الشخصي</a>
+            <div class="tracks-grid animate-fade-in">
+                <div class="track-card">
+                    <img src="https://cdn-icons-png.flaticon.com/128/1055/1055687.png" alt="Front-end icon"
+                        class="track-icon">
+                    <h3>Front-end</h3>
+                </div>
+                <div class="track-card">
+                    <img src="https://cdn-icons-png.flaticon.com/128/4492/4492311.png" alt="Back-end icon"
+                        class="track-icon">
+                    <h3>Back-end</h3>
+                </div>
+                <div class="track-card">
+                    <img src="https://cdn-icons-png.flaticon.com/128/6062/6062646.png" alt="Full-stack icon"
+                        class="track-icon">
+                    <h3>Full-stack</h3>
+                </div>
+                <div class="track-card">
+                    <img src="https://cdn-icons-png.flaticon.com/128/2586/2586488.png" alt="Mobile Development icon"
+                        class="track-icon">
+                    <h3>Mobile Development</h3>
+                </div>
+                <div class="track-card">
+                    <img src="https://cdn-icons-png.flaticon.com/128/1329/1329016.png" alt="UI/UX Design icon"
+                        class="track-icon">
+                    <h3>UI/UX Design</h3>
+                </div>
+            </div>
+
+            <div class="features">
+                <div class="feature animate-slide-in">
+                    <div class="feature-icon">🔍</div>
+                    <h3>ابحث عن المطورين</h3>
+                    <p>اعثر على المطورين المناسبين لمشروعك بسهولة</p>
+                </div>
+                <div class="feature animate-slide-in">
+                    <div class="feature-icon">👤</div>
+                    <h3>أضف ملفك الشخصي</h3>
+                    <p>قم بإنشاء ملف شخصي لعرض مهاراتك ومشاريعك</p>
+                </div>
+                <div class="feature animate-slide-in">
+                    <div class="feature-icon">🤝</div>
+                    <h3>تواصل مع الآخرين</h3>
+                    <p>ابدأ في التعاون وبناء شبكة علاقات مهنية</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="search" class="content-section hidden animate-fade-in">
+            <h2>البحث عن مطورين</h2>
+            <select id="searchTrack">
+                <option value="">اختر المسار</option>
+                <option value="frontend">Front-end</option>
+                <option value="backend">Back-end</option>
+                <option value="fullstack">Full-stack</option>
+                <option value="mobile">Mobile Development</option>
+                <option value="ui-ux">UI/UX Design</option>
+            </select>
+            <button onclick="searchDevelopers()">بحث</button>
+            <div id="searchResults"></div>
+        </section>
+
+        <section id="add-profile" class="content-section hidden animate-fade-in">
+            <h2>إضافة ملف شخصي</h2>
+            <input type="text" id="name" placeholder="الاسم">
+            <input type="tel" id="phone" placeholder="رقم الهاتف">
+            <select id="track">
+                <option value="">اختر المسار</option>
+                <option value="frontend">Front-end</option>
+                <option value="backend">Back-end</option>
+                <option value="fullstack">Full-stack</option>
+                <option value="mobile">Mobile Development</option>
+                <option value="ui-ux">UI/UX Design</option>
+            </select>
+            <div id="projectLinks"></div>
+            <button id="addProjectLinkBtn" onclick="addProjectLinkField()">إضافة رابط مشروع</button>
+            <button onclick="addProfile()">إضافة الملف الشخصي</button>
+        </section>
+
+        <section id="my-profile" class="content-section hidden animate-fade-in">
+            <h2>ملفي الشخصي</h2>
+            <div id="profileInfo"></div>
+            <button onclick="editProfile()">تعديل الملف الشخصي</button>
+            <button onclick="deleteProfile()">حذف الملف الشخصي</button>
         </section>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.10.0/localforage.min.js"></script>
     <script>
-        // تهيئة LocalForage
+        // Initialize localForage
         localforage.config({
             name: 'GraduationProject'
         });
 
-        // دالة لحفظ البيانات
-        function saveData(key, value) {
-            return localforage.setItem(key, value);
+        let currentUser = null;
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.add('hidden');
+                section.classList.remove('animate-fade-in');
+            });
+            const selectedSection = document.getElementById(sectionId);
+            selectedSection.classList.remove('hidden');
+            setTimeout(() => {
+                selectedSection.classList.add('animate-fade-in');
+            }, 10);
         }
 
-        // دالة لاسترجاع البيانات
-        function getData(key) {
-            return localforage.getItem(key);
+        function toggleMobileMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const mobileMenuIcon = document.querySelector('.mobile-menu-icon');
+
+            if (mobileMenu.style.right === '0px') {
+                mobileMenu.style.right = '-250px';
+                mobileMenuIcon.innerHTML = '☰';
+            } else {
+                mobileMenu.style.right = '0px';
+                mobileMenuIcon.innerHTML = '✕';
+            }
         }
 
-        // دالة لحذف البيانات
-        function removeData(key) {
-            return localforage.removeItem(key);
+        function addProjectLinkField() {
+            const projectLinks = document.getElementById('projectLinks');
+            const container = document.createElement('div');
+            container.classList.add('project-link-container', 'animate-slide-in');
+
+            const input = document.createElement('input');
+            input.type = 'url';
+            input.placeholder = 'رابط المشروع';
+            input.classList.add('project-link-input');
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = 'حذف';
+            deleteBtn.classList.add('delete-link-btn');
+            deleteBtn.onclick = function () {
+                container.classList.remove('animate-slide-in');
+                container.classList.add('animate-fade-out');
+                setTimeout(() => {
+                    projectLinks.removeChild(container);
+                }, 300);
+            };
+
+            container.appendChild(input);
+            container.appendChild(deleteBtn);
+            projectLinks.appendChild(container);
         }
+
+        async function addProfile() {
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const track = document.getElementById('track').value;
+            const projectLinks = Array.from(document.getElementsByClassName('project-link-input')).map(input => input.value);
+
+            if (!name || !phone || !track) {
+                alert('يرجى ملء جميع الحقول المطلوبة');
+                return;
+            }
+
+            const profile = { name, phone, track, projectLinks };
+            await localforage.setItem('currentUser', profile);
+            currentUser = profile;
+
+            // Add the profile to the list of all profiles
+            let allProfiles = await localforage.getItem('allProfiles') || [];
+            allProfiles.push(profile);
+            await localforage.setItem('allProfiles', allProfiles);
+
+            alert('تم إضافة الملف الشخصي بنجاح');
+            showSection('my-profile');
+            displayProfile();
+        }
+
+        async function searchDevelopers() {
+            const searchTrack = document.getElementById('searchTrack').value;
+            const searchResults = document.getElementById('searchResults');
+            searchResults.innerHTML = '';
+
+            const allProfiles = await localforage.getItem('allProfiles') || [];
+            const filteredProfiles = searchTrack ? allProfiles.filter(profile => profile.track === searchTrack) : allProfiles;
+
+            if (filteredProfiles.length === 0) {
+                searchResults.innerHTML = '<div class="no-results animate-fade-in">لا يوجد أشخاص في هذا المسار</div>';
+                return;
+            }
+
+            filteredProfiles.forEach((profile, index) => {
+                const profileCard = document.createElement('div');
+                profileCard.classList.add('profile-card', 'animate-slide-in');
+                profileCard.style.animationDelay = `${index * 0.1}s`;
+                profileCard.innerHTML = `
+                    <h3>${profile.name}</h3>
+                    <p>المسار: ${profile.track}</p>
+                    <p>رقم الهاتف: ${profile.phone}</p>
+                    <p>روابط المشاريع:</p>
+                    <ul>
+                        ${profile.projectLinks.map(link => `<li><a href="${link}" target="_blank" class="project-link">${link}</a></li>`).join('')}
+                    </ul>
+                `;
+                searchResults.appendChild(profileCard);
+            });
+        }
+
+        async function displayProfile() {
+            const profileInfo = document.getElementById('profileInfo');
+            currentUser = await localforage.getItem('currentUser');
+
+            if (currentUser) {
+                profileInfo.innerHTML = `
+                    <div class="animate-fade-in">
+                        <p>الاسم: ${currentUser.name}</p>
+                        <p>رقم الهاتف: ${currentUser.phone}</p>
+                        <p>المسار: ${currentUser.track}</p>
+                        <p>روابط المشاريع:</p>
+                        <ul>
+                            ${currentUser.projectLinks.map(link => `<li><a href="${link}" target="_blank" class="project-link">${link}</a></li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            } else {
+                profileInfo.innerHTML = '<p class="animate-fade-in">لم يتم إنشاء ملف شخصي بعد.</p>';
+            }
+        }
+
+        async function editProfile() {
+            currentUser = await localforage.getItem('currentUser');
+            if (currentUser) {
+                document.getElementById('name').value = currentUser.name;
+                document.getElementById('phone').value = currentUser.phone;
+                document.getElementById('track').value = currentUser.track;
+
+                const projectLinks = document.getElementById('projectLinks');
+                projectLinks.innerHTML = '';
+                currentUser.projectLinks.forEach(link => {
+                    const container = document.createElement('div');
+                    container.classList.add('project-link-container', 'animate-slide-in');
+
+                    const input = document.createElement('input');
+                    input.type = 'url';
+                    input.value = link;
+                    input.classList.add('project-link-input');
+
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.textContent = 'حذف';
+                    deleteBtn.classList.add('delete-link-btn');
+                    deleteBtn.onclick = function () {
+                        container.classList.remove('animate-slide-in');
+                        container.classList.add('animate-fade-out');
+                        setTimeout(() => {
+                            projectLinks.removeChild(container);
+                        }, 300);
+                    };
+
+                    container.appendChild(input);
+                    container.appendChild(deleteBtn);
+                    projectLinks.appendChild(container);
+                });
+
+                showSection('add-profile');
+            } else {
+                alert('لا يوجد ملف شخصي للتعديل');
+            }
+        }
+
+        async function deleteProfile() {
+            if (confirm('هل أنت متأكد من رغبتك في حذف ملفك الشخصي؟')) {
+                await localforage.removeItem('currentUser');
+                currentUser = null;
+
+                // Remove the profile from the list of all profiles
+                let allProfiles = await localforage.getItem('allProfiles') || [];
+                allProfiles = allProfiles.filter(profile => profile.phone !== currentUser.phone);
+                await localforage.setItem('allProfiles', allProfiles);
+
+                alert('تم حذف الملف الشخصي بنجاح');
+                displayProfile();
+            }
+        }
+
+        // Initial setup
+        displayProfile();
+        showSection('home');
     </script>
 </body>
+
 </html>
